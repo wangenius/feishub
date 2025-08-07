@@ -177,7 +177,7 @@ export class Table<T extends FieldData = FieldData> {
   async meta(): Promise<TableMeta | null> {
     try {
       const response = await this.client.query(
-        `https://open.feishu.cn/open-apis/bitable/v1/apps/${this.appToken}/tables/${this.tableId}`,
+        `https://open.feishu.cn/open-apis/bitable/v1/apps/${this.appToken}`,
         "GET",
         {}
       );
@@ -189,7 +189,7 @@ export class Table<T extends FieldData = FieldData> {
         return null;
       }
 
-      return (response.data as TableMeta) || null;
+      return (response.data?.app as TableMeta) || null;
     } catch (error) {
       console.error(`获取表格元数据时发生异常: ${error}`);
       return null;

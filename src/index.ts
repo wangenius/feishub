@@ -1,4 +1,2 @@
-export { Echo } from "./core/Echo";
-export { Echoa } from "./core/Echoa";
-export { IndexEcho } from "./core/IndexEcho";
-export { LocalEcho } from "./core/LocalEcho";
+export { Feishu } from "./core/Feishu";
+export { Table } from "./core/Table";

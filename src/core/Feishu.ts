@@ -6,8 +6,11 @@ export class Feishu {
   private tenant_access_token: string;
   constructor(appId: string, appSecret: string);
   constructor(config: { appId: string; appSecret: string });
-  constructor(appIdOrConfig: string | { appId: string; appSecret: string }, appSecret?: string) {
-    if (typeof appIdOrConfig === 'string') {
+  constructor(
+    appIdOrConfig: string | { appId: string; appSecret: string },
+    appSecret?: string
+  ) {
+    if (typeof appIdOrConfig === "string") {
       this.appId = appIdOrConfig;
       this.appSecret = appSecret!;
     } else {
@@ -17,7 +20,7 @@ export class Feishu {
     this.tenant_access_token = "";
   }
 
-  async init() {
+  async connect() {
     await this.getTenantAccessToken();
   }
 
@@ -50,14 +53,43 @@ export class Feishu {
 
   // 发送请求
   async query(url: string, method: string, data: any) {
-    const response = await fetch(url, {
+    if (!this.tenant_access_token) {
+      await this.getTenantAccessToken();
+    }
+    const options: RequestInit = {
       method,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         Authorization: `Bearer ${this.tenant_access_token}`,
       },
-      body: JSON.stringify(data),
-    });
-    return await response.json();
+    };
+
+    // GET 和 HEAD 请求不能有 body
+    if (method.toUpperCase() !== "GET" && method.toUpperCase() !== "HEAD") {
+      options.body = JSON.stringify(data);
+    }
+
+    const response = await fetch(url, options);
+    
+    // 检查响应状态
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    // 获取响应文本
+    const responseText = await response.text();
+    
+    // 检查响应是否为空
+    if (!responseText.trim()) {
+      throw new Error('Empty response from server');
+    }
+    
+    // 尝试解析JSON
+    try {
+      return JSON.parse(responseText);
+    } catch (error) {
+      console.error('Failed to parse JSON response:', responseText);
+      throw new Error(`Invalid JSON response: ${error}`);
+    }
   }
 }
