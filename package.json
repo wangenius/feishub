@@ -1,6 +1,6 @@
 {
   "name": "feishub",
-  "version": "1.0.21",
+  "version": "1.0.24",
   "description": "A TypeScript SDK for Feishu (Lark) multi-dimensional tables",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
