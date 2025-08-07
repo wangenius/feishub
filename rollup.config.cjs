@@ -1,6 +1,7 @@
 const resolve = require("@rollup/plugin-node-resolve");
 const commonjs = require("@rollup/plugin-commonjs");
 const typescript = require("@rollup/plugin-typescript");
+const json = require("@rollup/plugin-json");
 
 module.exports = {
   input: "src/index.ts",
@@ -14,10 +15,11 @@ module.exports = {
       format: "esm",
     },
   ],
-  external: ["react", "zustand", "localforage"],
+  external: ["feishu", "table"],
   plugins: [
     resolve(),
     commonjs(),
+    json(),
     typescript({
       tsconfig: "./tsconfig.json",
       declaration: true,
