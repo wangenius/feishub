@@ -100,10 +100,10 @@ export class Table<T extends FieldData = FieldData> {
     this.tableId = tableId || process.env.FEISHU_TABLE_ID || "";
     this.client =
       feishu ||
-      new Feishu(
-        process.env.FEISHU_APP_ID || "",
-        process.env.FEISHU_APP_SECRET || ""
-      );
+      new Feishu({
+        appId: process.env.FEISHU_APP_ID || "",
+        appSecret: process.env.FEISHU_APP_SECRET || ""
+      });
 
     // 确保客户端创建成功
     if (!this.client) {
