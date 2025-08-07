@@ -1,5 +1,5 @@
 // 测试npm包导入
-require('dotenv').config();
+require("dotenv").config();
 const { Feishu, Table } = require("./dist/index.js");
 
 console.log("Feishu class:", typeof Feishu);
@@ -40,7 +40,7 @@ async function test() {
       appToken: appToken || "MKoEb9qWTayowZspl0Hc9aMwnIc",
     });
     console.log("Table instance created successfully");
-    
+
     // 先获取表格元数据
     console.log("Getting table metadata...");
     const meta = await table.meta();
@@ -55,7 +55,10 @@ async function test() {
     console.log("Getting table fields...");
     const fields = await table.fields();
     if (fields) {
-      console.log("Available fields:", fields.map(f => f.field_name));
+      console.log(
+        "Available fields:",
+        fields.map((f) => f.field_name)
+      );
     } else {
       console.log("❌ Failed to get table fields");
       return;
@@ -64,14 +67,23 @@ async function test() {
     // 执行搜索（使用更简单的条件）
     console.log("Performing search...");
     const result = await table.search({
-      page_size: 1 // 只获取一条记录进行测试
+      filter: {
+        conjunction: "and",
+        conditions: [
+          {
+            field_name: "链接",
+            operator: "is",
+            value: ["https://www.digitaling.com/projects/345421.html"],
+          },
+        ],
+      },
     });
-    
+
     if (result) {
       console.log("Search result:", {
         items_count: result.items?.length || 0,
         has_more: result.has_more,
-        page_token: result.page_token
+        page_token: result.page_token,
       });
       if (result.items && result.items.length > 0) {
         console.log("First record:", result.items[0]);

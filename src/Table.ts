@@ -44,7 +44,7 @@ export interface SearchCondition {
     | "like"
     | "in"
     | "equal";
-  value: any[] | any; // 支持数组格式，兼容旧格式
+  value: any[];
 }
 
 export interface SearchFilter {
@@ -60,11 +60,6 @@ export interface SearchSort {
 export interface SearchOptions {
   filter?: SearchFilter;
   sort?: SearchSort[];
-  page_token?: string;
-  page_size?: number;
-  automatic_fields?: boolean; // 是否自动返回所有字段
-  field_names?: string[]; // 指定返回的字段名称
-  view_id?: string; // 视图ID
 }
 
 export interface TableMeta {
@@ -105,7 +100,7 @@ export class Table<T extends FieldData = FieldData> {
       feishu ||
       new Feishu({
         appId: process.env.FEISHU_APP_ID || "",
-        appSecret: process.env.FEISHU_APP_SECRET || ""
+        appSecret: process.env.FEISHU_APP_SECRET || "",
       });
 
     // 确保客户端创建成功
@@ -209,50 +204,13 @@ export class Table<T extends FieldData = FieldData> {
     options: SearchOptions = {}
   ): Promise<SearchResult<RecordData> | null> {
     try {
-      const body: any = {};
-
-      // 处理过滤条件
-      if (options.filter) {
-        const filter = { ...options.filter };
-        // 确保条件中的value是数组格式
-        if (filter.conditions) {
-          filter.conditions = filter.conditions.map(condition => ({
-            ...condition,
-            value: Array.isArray(condition.value) ? condition.value : [condition.value]
-          }));
-        }
-        body.filter = filter;
-      }
-
-      if (options.sort) {
-        body.sort = options.sort;
-      }
-
-      if (options.page_token) {
-        body.page_token = options.page_token;
-      }
-
-      if (options.page_size) {
-        body.page_size = options.page_size;
-      }
-
-      // 新增的API参数
-      if (options.automatic_fields !== undefined) {
-        body.automatic_fields = options.automatic_fields;
-      }
-
-      if (options.field_names) {
-        body.field_names = options.field_names;
-      }
-
-      if (options.view_id) {
-        body.view_id = options.view_id;
-      }
-
       const response = await this.client.query(
         `https://open.feishu.cn/open-apis/bitable/v1/apps/${this.appToken}/tables/${this.tableId}/records/search`,
         "POST",
-        body
+        {
+          filter: options.filter,
+          sort: options.sort,
+        }
       );
 
       if (response.code !== 0) {
