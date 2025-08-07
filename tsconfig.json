@@ -20,6 +20,6 @@
     "rootDir": "src",
     "baseUrl": "."
   },
-  "include": ["src", "src/core/IndexEcho/.ts"],
+  "include": ["src"],
   "exclude": ["node_modules", "dist", "**/__tests__/**"]
 }

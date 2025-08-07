@@ -1,8 +1,8 @@
 {
   "name": "feishub",
-  "version": "1.0.10",
+  "version": "1.0.12",
   "description": "A SDK for feishu platform",
-  "main": "dist/index.esm.js",
+  "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "type": "module",

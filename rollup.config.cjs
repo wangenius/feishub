@@ -25,6 +25,8 @@ module.exports = {
       declaration: true,
       declarationDir: "dist",
       exclude: ["**/__tests__/**"],
+      declarationMap: false,
+      sourceMap: false,
     }),
   ],
 };
