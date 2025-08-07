@@ -1,9 +1,12 @@
-import { Feishu as FeishuClass } from "./core/Feishu";
-import { Table as TableClass } from "./core/Table";
+// 直接导出类，确保TypeScript正确识别
+export { Feishu } from "./core/Feishu";
+export { Table } from "./core/Table";
 
-export const Feishu = FeishuClass;
-export const Table = TableClass;
+// 默认导出
+import { Feishu } from "./core/Feishu";
+import { Table } from "./core/Table";
 
-// 同时导出类型
-export type { Feishu as FeishuType } from "./core/Feishu";
-export type { Table as TableType } from "./core/Table";
+export default {
+  Feishu,
+  Table
+};

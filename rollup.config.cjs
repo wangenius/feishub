@@ -15,7 +15,7 @@ module.exports = {
       format: "esm",
     },
   ],
-  external: ["feishu", "table"],
+  external: ["dotenv"],
   plugins: [
     resolve(),
     commonjs(),
