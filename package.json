@@ -1,6 +1,6 @@
 {
   "name": "feishub",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A SDK for feishu platform",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -50,7 +50,7 @@
     "web-vitals": "^2.1.4"
   },
   "peerDependencies": {
-    "dotenv": "^17.2.1"
+    "dotenv": "^16.3.1"
   },
   "private": false,
   "publishConfig": {
