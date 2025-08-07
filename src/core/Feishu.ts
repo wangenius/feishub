@@ -1,23 +1,14 @@
 import { Table } from "./Table";
 
+import dotenv from "dotenv";
+dotenv.config();
 export class Feishu {
-  private appId: string;
-  private appSecret: string;
-  private tenant_access_token: string;
-  constructor(appId: string, appSecret: string);
-  constructor(config: { appId: string; appSecret: string });
-  constructor(
-    appIdOrConfig: string | { appId: string; appSecret: string },
-    appSecret?: string
-  ) {
-    if (typeof appIdOrConfig === "string") {
-      this.appId = appIdOrConfig;
-      this.appSecret = appSecret!;
-    } else {
-      this.appId = appIdOrConfig.appId;
-      this.appSecret = appIdOrConfig.appSecret;
-    }
-    this.tenant_access_token = "";
+  private appId: string = "";
+  private appSecret: string = "";
+  private tenant_access_token: string = "";
+  constructor(config?: { appId?: string; appSecret?: string }) {
+    this.appId = config?.appId || process.env.FEISHU_APP_ID || "";
+    this.appSecret = config?.appSecret || process.env.FEISHU_APP_SECRET || "";
   }
 
   async connect() {
@@ -70,25 +61,25 @@ export class Feishu {
     }
 
     const response = await fetch(url, options);
-    
+
     // 检查响应状态
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    
+
     // 获取响应文本
     const responseText = await response.text();
-    
+
     // 检查响应是否为空
     if (!responseText.trim()) {
-      throw new Error('Empty response from server');
+      throw new Error("Empty response from server");
     }
-    
+
     // 尝试解析JSON
     try {
       return JSON.parse(responseText);
     } catch (error) {
-      console.error('Failed to parse JSON response:', responseText);
+      console.error("Failed to parse JSON response:", responseText);
       throw new Error(`Invalid JSON response: ${error}`);
     }
   }
