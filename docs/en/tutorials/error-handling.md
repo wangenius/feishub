@@ -368,8 +368,3 @@ async function insertWithLogging(data: any) {
 5. **Log detailed information**: Facilitate troubleshooting and monitoring
 6. **Set reasonable timeouts**: Avoid long waits
 7. **Graceful degradation**: Provide alternative solutions when some features are unavailable
-
-## Next Steps
-
-- [Best Practices](./best-practices) - Learn more usage tips
-- [API Reference](../api/feishu) - View complete API documentation

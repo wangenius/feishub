@@ -339,7 +339,3 @@ const seniorDevelopers = await table.search({
 3. **分页处理**：对于大量数据，使用分页避免一次性加载过多记录
 4. **索引字段**：在飞书中为常用的筛选字段创建索引
 
-## 下一步
-
-- [错误处理](./error-handling) - 了解如何处理搜索中的错误情况
-- [最佳实践](./best-practices) - 学习使用 Feishub 的最佳实践

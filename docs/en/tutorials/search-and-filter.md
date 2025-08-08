@@ -338,8 +338,3 @@ const seniorDevelopers = await table.search({
 2. **Appropriate sorting**: Only use sorting when needed, avoid complex sorting on large datasets
 3. **Pagination handling**: Use pagination for large amounts of data to avoid loading too many records at once
 4. **Indexed fields**: Create indexes for frequently filtered fields in Feishu
-
-## Next Steps
-
-- [Error Handling](./error-handling) - Learn how to handle errors in search operations
-- [Best Practices](./best-practices) - Learn best practices for using Feishub
