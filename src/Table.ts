@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import { Feishu } from "./Feishu";
+import { Feishu } from "./Feishu.js";
 
 // 加载环境变量
 config();

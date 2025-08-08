@@ -156,8 +156,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: "Home", link: "/en/" },
-          { text: "Tutorials", link: "/en/tutorials/echo" },
-          { text: "API Reference", link: "/en/api/echo" },
+          { text: "Tutorials", link: "/en/tutorials/getting-started" },
         ],
         sidebar: {
           "/en/tutorials/": generateWorkflowSidebar("en"),
@@ -180,8 +179,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: "首页", link: "/zh/" },
-          { text: "教程", link: "/zh/tutorials/echo" },
-          { text: "API参考", link: "/zh/api/echo" },
+          { text: "教程", link: "/zh/tutorials/getting-started" },
         ],
         sidebar: {
           "/zh/tutorials/": generateWorkflowSidebar("zh"),

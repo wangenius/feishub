@@ -1,6 +1,6 @@
 // 导出主要的类
-export { Feishu } from './Feishu';
-export { Table } from './Table';
+export { Feishu } from "./Feishu.js";
+export { Table } from "./Table.js";
 
 // 导出类型定义
 export type {
@@ -12,5 +12,5 @@ export type {
   SearchFilter,
   SearchSort,
   SearchOptions,
-  TableMeta
-} from './Table';
+  TableMeta,
+} from "./Table.js";
