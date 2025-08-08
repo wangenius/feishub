@@ -142,9 +142,9 @@ function generateApiSidebar(dir: string): SidebarItem[] {
 }
 
 export default defineConfig({
-  title: "Echo",
-  description: "Lightweight React State Management Library",
-  base: "/echo-state/",
+  title: "Feishub",
+  description: "A TypeScript SDK for Feishu (Lark) multi-dimensional tables",
+  base: "/feishub/",
   head: [["link", { rel: "icon", href: "./icon.png" }]],
   cleanUrls: true,
 
@@ -200,7 +200,7 @@ export default defineConfig({
 
   themeConfig: {
     socialLinks: [
-      { icon: "github", link: "https://github.com/wangenius/echo-state" },
+      { icon: "github", link: "https://github.com/wangenius/feishub" },
     ],
   },
 });

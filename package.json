@@ -2,6 +2,7 @@
   "name": "feishub",
   "version": "1.0.24",
   "description": "A TypeScript SDK for Feishu (Lark) multi-dimensional tables",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -12,6 +13,9 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
     "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,14 +31,16 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wangenius/echo-state.git"
+    "url": "https://github.com/wangenius/feishub.git"
   },
   "bugs": {
-    "url": "https://github.com/wangenius/echo-state/issues"
+    "url": "https://github.com/wangenius/feishub/issues"
   },
-  "homepage": "https://github.com/wangenius/echo-state#readme",
+  "homepage": "https://github.com/wangenius/feishub#readme",
   "dependencies": {
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "gray-matter": "^4.0.3",
+    "vitepress": "^1.0.0-rc.31"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
