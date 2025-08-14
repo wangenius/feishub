@@ -10,7 +10,9 @@ export interface FieldData {
 
 export interface SearchResult<T> {
   items?: T[] | undefined;
+  // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
   page_token?: string | undefined;
+  // 是否还有更多项
   has_more?: boolean | undefined;
 }
 
@@ -57,9 +59,31 @@ export interface SearchSort {
   desc?: boolean;
 }
 
+/**
+ * 搜索选项
+ * @param filter - 搜索过滤条件
+ * @param sort - 搜索排序条件
+ * @param view_id - 搜索多维表格中视图的唯一标识。
+ * @param field_name - 搜索字段名称,字段名称，用于指定本次查询返回记录中包含的字段
+
+
+ */
 export interface SearchOptions {
   filter?: SearchFilter;
   sort?: SearchSort[];
+  view_id?: string;
+  field_name?: string;
+  page?: SearchPage;
+}
+
+/**
+ * 搜索分页
+ * @param page_size - 每页返回的记录数
+ * @param page_token - 分页标记，用于获取下一页数据
+ */
+export interface SearchPage {
+  page_size?: number;
+  page_token?: string;
 }
 
 export interface TableMeta {
@@ -204,14 +228,17 @@ export class Table<T extends FieldData = FieldData> {
     options: SearchOptions = {}
   ): Promise<SearchResult<RecordData> | null> {
     try {
-      const response = await this.client.query(
-        `https://open.feishu.cn/open-apis/bitable/v1/apps/${this.appToken}/tables/${this.tableId}/records/search`,
-        "POST",
-        {
-          filter: options.filter,
-          sort: options.sort,
-        }
-      );
+      let url = `https://open.feishu.cn/open-apis/bitable/v1/apps/${this.appToken}/tables/${this.tableId}/records/search`;
+      url += `?page_size=${options.page?.page_size || 20}`;
+
+      if (options.page?.page_token) {
+        url += `&page_token=${options.page.page_token}`;
+      }
+
+      const response = await this.client.query(url, "POST", {
+        filter: options.filter,
+        sort: options.sort,
+      });
 
       if (response.code !== 0) {
         console.error(
