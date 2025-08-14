@@ -307,7 +307,7 @@ export class Table<T extends FieldData = FieldData> {
 
       if (response.code !== 0) {
         console.error(
-          `更新记录失败, code: ${response.code}, msg: ${response.msg}`
+          `更新记录失败, code: ${response.code}, msg: ${response.msg}, data: ${JSON.stringify(response)}`
         );
         return null;
       }
