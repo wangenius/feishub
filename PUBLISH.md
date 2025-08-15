@@ -74,6 +74,9 @@ const table = feishu.table({
   tableId: 'your_table_id',
   appToken: 'your_app_token'
 });
+
+table.search()
+
 ```
 
 ## 注意事项
