@@ -258,6 +258,30 @@ export class Table<T extends FieldData = FieldData> {
     }
   }
 
+  async iterate(
+    options: SearchOptions = {},
+    callback: (record: RecordData[]) => void | Promise<void>
+  ) {
+    let page_token = options.page?.page_token;
+    const page_size = options.page?.page_size;
+    while (true) {
+      const result = await this.search({
+        ...options,
+        page: { page_token, page_size },
+      });
+      if (!result?.items) {
+        break;
+      }
+      if (result.items.length) {
+        await callback(result.items);
+      }
+      page_token = result.page_token;
+      if (!result.has_more || !result.page_token) {
+        break;
+      }
+    }
+  }
+
   /**
    * 列出多维表格的所有字段
    *
@@ -307,7 +331,9 @@ export class Table<T extends FieldData = FieldData> {
 
       if (response.code !== 0) {
         console.error(
-          `更新记录失败, code: ${response.code}, msg: ${response.msg}, data: ${JSON.stringify(response)}`
+          `更新记录失败, code: ${response.code}, msg: ${
+            response.msg
+          }, data: ${JSON.stringify(response)}`
         );
         return null;
       }
